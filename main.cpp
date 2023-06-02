@@ -1,3 +1,12 @@
-#include <iostream>
+#include <SFML/Graphics.hpp>
 
-int main() { std::cout << "HW"; }
+#include "src/headers/engine.hpp"
+
+int main() {
+  Engine gameEngine;
+
+  while (gameEngine.getIsWindowOpen()) {
+    gameEngine.update();
+    gameEngine.render();
+  }
+}

@@ -1,28 +1,47 @@
 #include <SFML/Graphics.hpp>
+#include <map>
+#include <string>
+#include <vector>
+
+#include "scene.hpp"
 
 class Engine {
  private:
-  // Atributes
+  // Atributtes
+
   sf::VideoMode* pVideoMode;
   sf::RenderWindow* pWindow;
 
   sf::Event event;
 
+  // Scene Atributtes
+
+  Scene* currentScene;
+  std::map<std::string, Scene*> scenesMap;
+
   // Functions
+
   void initWindow();
   void poolEvents();
 
  public:
   // Constructors / Destructors
+
   Engine();
   ~Engine();
 
   // Functions
+
   void initVariables();
 
-  void update();
-  void render();
+  void updateGame();
+
+  // Scene Functions
+
+  void pushScene(Scene* cena);
+  void setCurrentScene(std::string name);
 
   // Get / Set Functions
+
   bool getIsWindowOpen();
 };

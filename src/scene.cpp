@@ -2,6 +2,10 @@
 
 // Constructors / Destructors
 
+/**
+ * Creates a game scene
+ * @param name Give a name to the scene
+ */
 Scene::Scene(std::string name) { this->sceneName = name; }
 
 Scene::~Scene() {}
@@ -14,7 +18,7 @@ Scene::~Scene() {}
  * @param func Function pointer to be added
  * @returns void
  */
-void Scene::add(Function func) { this->functionSet.push_back(func); }
+void Scene::add(std::function<void()> func) { this->functionSet.push_back(func); }
 
 /**
  * Runs scene functions

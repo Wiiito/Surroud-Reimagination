@@ -73,7 +73,10 @@ bool Engine::getIsWindowOpen() { return this->pWindow->isOpen(); }
 
 Engine::Engine() { initVariables(); }
 
-Engine::~Engine() {}
+Engine::~Engine() {
+  delete this->pVideoMode;
+  delete this->pWindow;
+}
 
 /**
  * Pushes a Scene to engines collection of scene @paragraph

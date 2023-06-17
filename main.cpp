@@ -6,6 +6,8 @@
 int main() {
   Engine gameEngine;
 
+  sf::RenderWindow *pWindow = gameEngine.getWindow();
+
   Game *game = new Game;
 
   Scene gameScene("game");
@@ -22,7 +24,7 @@ int main() {
   Scene titleScene("title");
 
   titleScene.add([titleScreen]() -> void { titleScreen->update(); });
-  titleScene.add([titleScreen]() -> void { titleScreen->render(); });
+  titleScene.add([titleScreen, pWindow]() -> void { titleScreen->render(pWindow); });
 
   gameEngine.pushScene(&titleScene);
 

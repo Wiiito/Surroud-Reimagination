@@ -6,7 +6,7 @@ using namespace sf;
 
 /**
  * Initialize game variables @paragraph
- * - Init pointers with values: @paragraph
+ * - Init pointers with values:
  *  - Window
  * @public
  * @returns void
@@ -56,7 +56,9 @@ void Engine::poolEvents() {
  */
 void Engine::updateGame() {
   this->poolEvents();
+  this->pWindow->clear();
   this->currentScene->run();
+  this->pWindow->display();
 }
 
 // Get / Sets
@@ -68,6 +70,14 @@ void Engine::updateGame() {
  * @public
  */
 bool Engine::getIsWindowOpen() { return this->pWindow->isOpen(); }
+
+/**
+ * Returns engine window pointer
+ *
+ * @returns RenderWindow* pointer, Engine's opened window
+ * @public
+ */
+RenderWindow* Engine::getWindow() { return this->pWindow; }
 
 // Constructors / Destructors
 
@@ -92,6 +102,7 @@ void Engine::pushScene(Scene* cena) {
 
 /**
  * Sets current scene
+ *
  * @returns void
  * @param name Scene name to be set to current scene
  * @public

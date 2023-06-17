@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include <map>
 #include <string>
@@ -44,4 +46,5 @@ class Engine {
   // Get / Set Functions
 
   bool getIsWindowOpen();
+  sf::RenderWindow* getWindow();
 };

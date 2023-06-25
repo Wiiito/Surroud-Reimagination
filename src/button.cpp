@@ -2,6 +2,7 @@
 
 using namespace sf;
 using std::function;
+using std::vector;
 
 // Constructors / Destructors
 
@@ -28,10 +29,33 @@ Button::~Button() {}
  * @return void
  * @public
  */
+#include <iostream>
 void Button::render(RenderWindow *pWindow) {
+  // Updates state on mouse pos
+  sf::Vector2i mousePos = Mouse::getPosition(*pWindow);
+
+  sf::Color textOriginalColor = this->text.getFillColor();
+
+  // Or hell, mas necessario... :/
+  if (this->text.getGlobalBounds().contains(mousePos.x, mousePos.y) ||
+      this->outlineRect.getGlobalBounds().contains(mousePos.x, mousePos.y) ||
+      this->insideRect.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
+    for (auto fn : this->hoverFunctions) {
+      fn();
+    }
+
+    if (Mouse::isButtonPressed(Mouse::Left)) {
+      this->callBack();
+    }
+  }
+
   pWindow->draw(this->outlineRect);
   pWindow->draw(this->insideRect);
   pWindow->draw(this->text);
+
+  this->text.setFillColor(textOriginalColor);
+  this->insideRect.setFillColor(this->backgroundColor);
+  this->outlineRect.setFillColor(this->outlineColor);
 }
 
 // set / get Functions
@@ -102,9 +126,44 @@ void Button::setOutlineSize(float size) {
  */
 void Button::setOutlineColor(sf::Color color) { this->outlineRect.setFillColor(color); }
 
-// TODO
-void Button::setCallbackFunction() {}
-void Button::setHoverFunction() {}
+/**
+ * Set a callback function on click
+ * @public
+ * @param function function that will be called (lambda)
+ * @return void
+ */
+void Button::setCallbackFunction(function<void()> function) { this->callBack = function; }
+
+// void Button::setHoverFunction() {}
+// Ideia inicial era ter uma poder adicionar uma função para hover
+// Mas para isso algum atributo teria que ficar publico, decidimos então
+// evitar isso
+
+/**
+ * New color on hover, can be called multiple types for more effects
+ * @public
+ * @param elem Element type: TEXT, BACKGROUND, OUTLINE
+ * @param newColor color that will be selected
+ * @return void
+ */
+void Button::setColorOnHover(btnElement elem, sf::Color newColor) {
+  switch (elem) {
+    case TEXT:
+      this->hoverFunctions.push_back(
+          [this, newColor]() -> void { this->text.setFillColor(newColor); });
+      break;
+
+    case BACKGROUND:
+      this->hoverFunctions.push_back(
+          [this, newColor]() -> void { this->insideRect.setFillColor(newColor); });
+      break;
+
+    case OUTLINE:
+      this->hoverFunctions.push_back(
+          [this, newColor]() -> void { this->outlineRect.setFillColor(newColor); });
+      break;
+  }
+}
 
 /**
  * Set the button origin point

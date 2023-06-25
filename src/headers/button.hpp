@@ -2,6 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <functional>
+#include <vector>
+
+enum btnElement { TEXT, BACKGROUND, OUTLINE };
 
 class Button {
  private:
@@ -15,7 +18,7 @@ class Button {
   float outlineSize = 0.f;
 
   std::function<void()> callBack = []() -> void {};
-  std::function<void()> hover = []() -> void {};
+  std::vector<std::function<void()>> hoverFunctions;
 
  public:
   // Constructors / Destructors
@@ -39,8 +42,8 @@ class Button {
   void setBackgroundColor(sf::Color color);
   void setOutlineSize(float size);
   void setOutlineColor(sf::Color color);
-  void setCallbackFunction();
-  void setHoverFunction();
+  void setCallbackFunction(std::function<void()> function);
+  void setColorOnHover(btnElement elem, sf::Color newColor);
 
   void setOrigin(sf::Vector2f originPos);
 };

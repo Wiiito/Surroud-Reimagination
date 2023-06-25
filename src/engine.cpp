@@ -107,4 +107,7 @@ void Engine::pushScene(Scene* cena) {
  * @param name Scene name to be set to current scene
  * @public
  */
-void Engine::setCurrentScene(std::string name) { currentScene = scenesMap[name]; }
+void Engine::setCurrentScene(std::string name) {
+  currentScene = scenesMap[name];
+  currentScene->instantiate();
+}

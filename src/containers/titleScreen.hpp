@@ -5,7 +5,7 @@
 #include "../headers/engine.hpp"
 
 class TitleScreen {
-  // Engine *pEngine;  // Evintando attribute hell
+  Engine *pEngine;  // Evintando attribute hell
 
   // Background
 
@@ -52,8 +52,8 @@ class TitleScreen {
     this->startButton.setPosition(sf::Vector2f(640, 330));
     this->startButton.setColorOnHover(TEXT, sf::Color(80, 0, 7));
     this->startButton.setText(startButtonText);
-    // this->startButton.setCallbackFunction(
-    //     [this]() -> void { this->pEngine->setCurrentScene("game"); });
+    this->startButton.setCallbackFunction(
+        [this]() -> void { this->pEngine->setCurrentScene("game"); });
   }
 
   Button settingsButton;
@@ -80,8 +80,7 @@ class TitleScreen {
     this->quitButton.setPosition(sf::Vector2f(640, 580));
     this->quitButton.setText(quitButtonText);
     this->quitButton.setColorOnHover(TEXT, sf::Color(80, 0, 7));
-    // this->quitButton.setCallbackFunction([this]() -> void { this->pEngine->getWindow()->close();
-    // });
+    this->quitButton.setCallbackFunction([this]() -> void { this->pEngine->getWindow()->close(); });
   }
 
   void initVariables() {
@@ -94,7 +93,10 @@ class TitleScreen {
   }
 
  public:
-  TitleScreen() { this->initVariables(); }
+  TitleScreen(Engine *pEngine) {
+    this->initVariables();
+    this->pEngine = pEngine;
+  }
 
   void update() {}
   void render(sf::RenderWindow *pWindow) {

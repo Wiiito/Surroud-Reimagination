@@ -1,19 +1,22 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-#include "src/headers/sceneCollection.hpp"
+#include "src/containers/game.hpp"
+#include "src/containers/titleScreen.hpp"
 
-// Delete na current
-// Callback q inicia o obj do game
+/**
+ * Todos os ponteiros para objetos do jogo são chamados aqui pois não podem ser retirados da
+ * memoria. As cenas são configuradas aqui para evitar "param hell", em resumo, pra saber o que é o
+ * que e de onde vem.
+ */
 
 int main() {
   Engine gameEngine;
 
   sf::RenderWindow *pWindow = gameEngine.getWindow();
 
+  // ---- Creating gameScene ----
   Game *game = new Game;
-  TitleScreen *titleScreen = new TitleScreen(&gameEngine);
-
   Scene gameScene("game");
   gameScene.setInstanceFunction([&game]() -> void {
     delete (game);
@@ -25,6 +28,8 @@ int main() {
   });
   gameEngine.pushScene(&gameScene);
 
+  // ---- Creating Title Scene ----
+  TitleScreen *titleScreen = new TitleScreen(&gameEngine);
   Scene titleScene("title");
   titleScene.setInstanceFunction([&titleScreen, &gameEngine]() -> void {
     delete (titleScreen);
@@ -34,8 +39,10 @@ int main() {
   titleScene.add([&titleScreen, pWindow]() -> void { titleScreen->render(pWindow); });
   gameEngine.pushScene(&titleScene);
 
+  // Set the initial scene
   gameEngine.setCurrentScene("title");
 
+  // Runs the game
   while (gameEngine.getIsWindowOpen()) {
     gameEngine.updateGame();
   }

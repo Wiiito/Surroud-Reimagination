@@ -1,4 +1,4 @@
-all: delete compile link run
+all: compile link delete run
 
 compile:
 	g++ -c main.cpp src/*.cpp
@@ -10,4 +10,4 @@ run:
 	./main
 
 delete:
-	rm -rf main *.o 
+	rm -rf *.o 

@@ -1,18 +1,19 @@
 #include <iostream>
 
-#include "../headers/engine.hpp"
 #include "../headers/dragon.hpp"
+#include "../headers/engine.hpp"
 
 class Game {
  private:
   RenderWindow *pWindow = nullptr;
   Dragon dragon;
+
  public:
   Game(RenderWindow *pWindow) {
-    std::cout << "Constructor;\n";
     this->pWindow = pWindow;
     Dragon dragon;
   };
-  void update() {  }
-  void render() { dragon.update(pWindow);}
+
+  void update() {}
+  void render() { dragon.update(this->pWindow); }
 };

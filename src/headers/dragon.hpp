@@ -13,6 +13,12 @@ private:
     int offset;
     int myDirection;
 
+    Texture headTexture;
+    Texture baseTexture;
+
+    Sprite headSprite;
+    Sprite baseSprite;
+
     void grow(int x, int y);
 
 public:

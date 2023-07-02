@@ -1,17 +1,30 @@
 #include <SFML/Graphics.hpp>
 #include "headers/dragon.hpp"
-//#include <iostream>
+#include <iostream>
 //#include <ctime>
 
 using namespace sf;
 using std::vector;
 
 Dragon::Dragon(){
-    dragonRectShape.setSize(sf::Vector2f(offset, offset));
+    this->headTexture.loadFromFile("assets/imgs/mountainBackground.png");
+    this->headTexture.setSmooth(true);
+    
+    this->headSprite.setTexture(this->headTexture);
+    this->headSprite.setPosition(Vector2f(50, 50));
+    this->headSprite.setScale(4, 4);
+
+    this->headSprite.setTextureRect(IntRect(0, 0, 29, 46));
+    this->headSprite.setColor(Color(255, 255, 255, 128));
+
+
+
+    offset = 50;
+    dragonRectShape.setSize(Vector2f(offset, offset));
     dragonRectShape.setFillColor(Color::Red);
 
     dragonBody.push_back(
-        Vector2f(200, 200)
+        Vector2f(0, 0)
     );
 }
 
@@ -46,8 +59,10 @@ void Dragon::move(int direction) {
 }
 
 void Dragon::update(RenderWindow *pWindow){
+    pWindow->draw(this->headSprite);
+
     for (int i = 0; i < dragonBody.size(); i++) {
         dragonRectShape.setPosition(dragonBody.at(i).x, dragonBody.at(i).y);
         pWindow->draw(this->dragonRectShape);
-    }
+    }  
 }

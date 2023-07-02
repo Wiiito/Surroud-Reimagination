@@ -9,9 +9,10 @@ class Game {
   Dragon dragon;
  public:
   Game(RenderWindow *pWindow) {
+    std::cout << "Constructor;\n";
     this->pWindow = pWindow;
     Dragon dragon;
   };
-  void update() { }
+  void update() {  }
   void render() { dragon.update(pWindow);}
 };

@@ -16,13 +16,13 @@ int main() {
   sf::RenderWindow *pWindow = gameEngine.getWindow();
 
   // ---- Creating gameScene ----
-  Game *game = new Game;
+  Game *game = new Game(pWindow);
   Scene gameScene("game");
   gameScene.setInstanceFunction([&game]() -> void {
     delete (game);
-    game = new Game;
+    game = new Game(pWindow);
   });
-  gameScene.add([game]() -> void {
+  gameScene.add([game, pWindow]() -> void {
     game->update();
     game->render();
   });

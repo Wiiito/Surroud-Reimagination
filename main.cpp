@@ -18,7 +18,7 @@ int main() {
   // ---- Creating gameScene ----
   Game *game = new Game(pWindow);
   Scene gameScene("game");
-  gameScene.setInstanceFunction([&game]() -> void {
+  gameScene.setInstanceFunction([&game, pWindow]() -> void {
     delete (game);
     game = new Game(pWindow);
   });

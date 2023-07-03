@@ -5,15 +5,15 @@
 
 class Game {
  private:
-  RenderWindow *pWindow = nullptr;
   Dragon dragon;
 
- public:
-  Game(RenderWindow *pWindow) {
-    this->pWindow = pWindow;
-    Dragon dragon;
-  };
+  sf::RectangleShape Background;
 
+ public:
+  Game(sf::RenderWindow *pWindow) {
+    Background.setSize(Vector2f(pWindow->getSize().x, pWindow->getSize().y));
+    Background.setFillColor(Color::White);
+  }
   void update() {}
-  void render() { dragon.update(this->pWindow); }
-};
+  void render(sf::RenderWindow *pWindow) {pWindow->draw(this->Background); dragon.update(pWindow); }
+};  

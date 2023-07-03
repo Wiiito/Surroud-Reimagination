@@ -11,6 +11,7 @@
  */
 
 int main() {
+  std::srand(std::time(nullptr));
   Engine gameEngine;
 
   sf::RenderWindow *pWindow = gameEngine.getWindow();
@@ -24,7 +25,7 @@ int main() {
   });
   gameScene.add([game, pWindow]() -> void {
     game->update();
-    game->render();
+    game->render(pWindow);
   });
   gameEngine.pushScene(&gameScene);
 

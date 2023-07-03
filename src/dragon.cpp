@@ -8,26 +8,35 @@ using namespace sf;
 using std::vector;
 
 Dragon::Dragon() {
-  this->headTexture.loadFromFile("src/assets/imgs/dragon.png");
-  this->headTexture.setSmooth(true);
+  offset = 50;
+  dragonRectShape.setSize(Vector2f(offset, offset));
+  dragonRectShape.setFillColor(Color::Red);
+
+  dragonBody.push_back(Vector2f(0, 0));
+
+  this->makeHead();
+}
+
+void Dragon::makeHead() {
+  this->baseTexture.loadFromFile("src/assets/imgs/dragon/dragon-base.png");
+
+  this->baseSprite.setTexture(this->baseTexture);
+  this->baseSprite.setPosition(Vector2f(50, 80));
+  this->baseSprite.setScale(4, 4);
+
+  this->baseSprite.setTextureRect(IntRect(0, 0, 29, 46));
+  this->baseSprite.setColor(Color(255, 255, 255, 128));
+
+  this->headTexture.loadFromFile("src/assets/imgs/dragon/dragon-frame00.png");
 
   this->headSprite.setTexture(this->headTexture);
   this->headSprite.setPosition(Vector2f(50, 50));
   this->headSprite.setScale(4, 4);
 
   this->headSprite.setTextureRect(IntRect(0, 0, 29, 46));
-  this->headSprite.setColor(Color(255, 255, 255, 128));
-
-  offset = 50;
-  dragonRectShape.setSize(Vector2f(offset, offset));
-  dragonRectShape.setFillColor(Color::Red);
-
-  dragonBody.push_back(Vector2f(0, 0));
 }
 
 Vector2f Dragon::onGridRandom() {
-  std::srand(std::time(nullptr));
-
   return Vector2f(float((rand() % int(screenSize.x) / offset) * offset),
                   float((rand() % int(screenSize.y) / offset) * offset));
 }
@@ -50,7 +59,8 @@ void Dragon::move(int direction) {
 }
 
 void Dragon::update(RenderWindow *pWindow) {
-  pWindow->draw(this->headSprite);
+  pWindow->draw(this->baseSprite);
+  //pWindow->draw(this->headSprite);
 
   for (int i = 0; i < dragonBody.size(); i++) {
     dragonRectShape.setPosition(dragonBody.at(i).x, dragonBody.at(i).y);

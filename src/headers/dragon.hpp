@@ -20,6 +20,7 @@ private:
     Sprite baseSprite;
 
     void grow(int x, int y);
+    void makeHead();
 
 public:
     Dragon();

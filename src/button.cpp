@@ -29,7 +29,6 @@ Button::~Button() {}
  * @return void
  * @public
  */
-#include <iostream>
 void Button::render(RenderWindow *pWindow) {
   // Updates state on mouse pos
   sf::Vector2i mousePos = Mouse::getPosition(*pWindow);
@@ -37,6 +36,7 @@ void Button::render(RenderWindow *pWindow) {
   sf::Color textOriginalColor = this->text.getFillColor();
 
   // Or hell, mas necessario... :/
+  // Procura por possivel encontro com o mouse
   if (this->text.getGlobalBounds().contains(mousePos.x, mousePos.y) ||
       this->outlineRect.getGlobalBounds().contains(mousePos.x, mousePos.y) ||
       this->insideRect.getGlobalBounds().contains(mousePos.x, mousePos.y)) {
@@ -44,9 +44,18 @@ void Button::render(RenderWindow *pWindow) {
       fn();
     }
 
+    if (!mouseEntered) {
+      this->hoverSound.play();
+    }
+
+    mouseEntered = true;
+
     if (Mouse::isButtonPressed(Mouse::Left)) {
       this->callBack();
+      clickSound.play();
     }
+  } else {
+    mouseEntered = false;
   }
 
   pWindow->draw(this->outlineRect);
@@ -173,3 +182,29 @@ void Button::setColorOnHover(btnElement elem, sf::Color newColor) {
  * @return void
  */
 void Button::setOrigin(Vector2f originPos) {}
+
+// Sound related
+
+/**
+ * Adds a sound that will be played on hover
+ * @public
+ * @param soundBuffer sf::SoundBuffer with the buffer sound to be played
+ * @return void
+ */
+void Button::setHoverSound(std::string path) {
+  this->hoverSoundBuffer.loadFromFile(path);
+  this->hoverSound.setBuffer(hoverSoundBuffer);
+  this->hoverSound.setVolume(SoundControler::getFormatedMusicVolume());
+}
+
+/**
+ * Adds a sound that will be played on click
+ * @public
+ * @param path path to sound
+ * @return void
+ */
+void Button::setClickSound(std::string path) {
+  this->clickSoundBuffer.loadFromFile(path);
+  this->clickSound.setBuffer(clickSoundBuffer);
+  this->hoverSound.setVolume(SoundControler::getFormatedMusicVolume());
+}

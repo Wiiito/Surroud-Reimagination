@@ -15,5 +15,8 @@ class Game {
     Background.setFillColor(Color::White);
   }
   void update() {}
-  void render(sf::RenderWindow *pWindow) {pWindow->draw(this->Background); dragon.update(pWindow); }
-};  
+  void render(sf::RenderWindow *pWindow) {
+    pWindow->draw(this->Background);
+    dragon.update(pWindow);
+  }
+};

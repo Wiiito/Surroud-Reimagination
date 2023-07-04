@@ -1,3 +1,4 @@
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -42,6 +43,7 @@ class TitleScreen {
 
   // Buttons
   Button startButton;
+
   void initStartButton() {
     sf::Text startButtonText;
     startButtonText.setFont(yozakuraFonte);
@@ -83,8 +85,22 @@ class TitleScreen {
     this->quitButton.setCallbackFunction([this]() -> void { this->pEngine->getWindow()->close(); });
   }
 
+  // Soud related
+  void initSounds() {
+    this->startButton.setClickSound("src/assets/sounds/chimestart.wav");
+    this->startButton.setHoverSound("src/assets/sounds/zipclick.wav");
+
+    this->settingsButton.setClickSound("src/assets/sounds/chimestart.wav");
+    this->settingsButton.setHoverSound("src/assets/sounds/zipclick.wav");
+
+    this->quitButton.setHoverSound("src/assets/sounds/zipclick.wav");
+  }
+
+  // --------------------
+
   void initVariables() {
     this->initBackground();
+    this->initSounds();
     this->initFonte();
     this->initTitleText();
     this->initStartButton();

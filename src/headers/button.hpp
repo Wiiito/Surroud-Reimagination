@@ -1,8 +1,12 @@
 #pragma once
 
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <functional>
+#include <string>
 #include <vector>
+
+#include "sound.hpp"
 
 enum btnElement { TEXT, BACKGROUND, OUTLINE };
 
@@ -19,6 +23,14 @@ class Button {
 
   std::function<void()> callBack = []() -> void {};
   std::vector<std::function<void()>> hoverFunctions;
+
+  // Sounds related
+  sf::SoundBuffer hoverSoundBuffer;
+  sf::SoundBuffer clickSoundBuffer;
+  sf::Sound hoverSound;
+  sf::Sound clickSound;
+
+  bool mouseEntered = false;
 
  public:
   // Constructors / Destructors
@@ -44,6 +56,10 @@ class Button {
   void setOutlineColor(sf::Color color);
   void setCallbackFunction(std::function<void()> function);
   void setColorOnHover(btnElement elem, sf::Color newColor);
-
   void setOrigin(sf::Vector2f originPos);
+
+  // Sound related
+
+  void setHoverSound(std::string path);
+  void setClickSound(std::string path);
 };

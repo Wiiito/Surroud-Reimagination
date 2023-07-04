@@ -2,7 +2,13 @@
 #include <iostream>
 
 #include "src/containers/game.hpp"
+#include "src/containers/settings.hpp"
 #include "src/containers/titleScreen.hpp"
+#include "src/headers/sound.hpp"
+
+int SoundControler::effectsVolume = 50;
+int SoundControler::musicVolume = 50;
+int SoundControler::globalVolume = 50;
 
 /**
  * Todos os ponteiros para objetos do jogo são chamados aqui pois não podem ser retirados da
@@ -12,6 +18,9 @@
 
 int main() {
   std::srand(std::time(nullptr));
+
+  // Initial sound configuration
+
   Engine gameEngine;
 
   sf::RenderWindow *pWindow = gameEngine.getWindow();
@@ -39,6 +48,16 @@ int main() {
   titleScene.add([titleScreen]() -> void { titleScreen->update(); });
   titleScene.add([&titleScreen, pWindow]() -> void { titleScreen->render(pWindow); });
   gameEngine.pushScene(&titleScene);
+
+  // ---- Creating Settings Scene ----
+  SettingsScreen *settingsScreen = new SettingsScreen(&gameEngine);
+  Scene settingsSence("settings");
+  settingsSence.setInstanceFunction([&settingsScreen, &gameEngine]() -> void {
+    delete (settingsScreen);
+    settingsScreen = new SettingsScreen(&gameEngine);
+  });
+  settingsSence.add([&settingsScreen, pWindow]() -> void { settingsScreen->render(pWindow); });
+  gameEngine.pushScene(&settingsSence);
 
   // Set the initial scene
   gameEngine.setCurrentScene("title");

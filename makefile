@@ -4,7 +4,7 @@ compile:
 	g++ -c main.cpp src/*.cpp
 
 link:
-	g++ *.o -o main -lsfml-graphics -lsfml-window -lsfml-system
+	g++ *.o -o main -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 run:
 	./main

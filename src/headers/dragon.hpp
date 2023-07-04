@@ -11,7 +11,7 @@ private:
     Vector2f screenSize;
     RectangleShape dragonRectShape;
     int offset;
-    int myDirection = 0;
+    int myDirection = -1;
     Keyboard::Key keys[4];
 
     Texture headTexture;
@@ -24,8 +24,8 @@ private:
     void makeHead();
 
 public:
-    Dragon();
-    Vector2f onGridRandom();
+    Dragon(Color color, int part);
+    Vector2f onGridRandom(int part);
     void move();
     void update(RenderWindow *pWindow);
     void setKeys(Keyboard::Key* keys);

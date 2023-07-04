@@ -7,14 +7,16 @@
 using namespace sf;
 using std::vector;
 
-Dragon::Dragon() {
+Dragon::Dragon(Color color, int part) {
   this->screenSize = Vector2f(1280, 720);
+  offset = 40;
 
-  offset = 50;
+  
   dragonRectShape.setSize(Vector2f(offset, offset));
-  dragonRectShape.setFillColor(Color::Red);
+  dragonRectShape.setFillColor(color);
 
-  dragonBody.push_back(this->onGridRandom());
+  dragonBody.push_back(this->onGridRandom(part));
+  std::cout << dragonBody.at(0).x << ", " << dragonBody.at(0).y << std::endl;
   this->makeHead();
 }
 
@@ -37,10 +39,12 @@ void Dragon::makeHead() {
   this->headSprite.setTextureRect(IntRect(0, 0, 29, 46));
 }
 
-Vector2f Dragon::onGridRandom() {
+Vector2f Dragon::onGridRandom(int part) {
+  int midWindX = (part * screenSize.x / 2 / offset) * offset;
+
   return Vector2f(
-    float((rand() % int(screenSize.x) / offset) * offset),
-    float((rand() % int(screenSize.y) / offset) * offset)
+    offset + midWindX + ((rand() % int(screenSize.x / 2 - 2 * offset) / offset) * offset),
+    offset + ((rand() % int(screenSize.y - 2 * offset) / offset) * offset)
   );
 }
 
@@ -50,26 +54,18 @@ void Dragon::grow(int x, int y) {
 }
 
 void Dragon::move() {
-  switch (this->myDirection)
-  {
+  switch (this->myDirection){
   case 0:
     this->grow(1, 0);
     break;
-    
   case 1:
     this->grow(0, -1);
     break;
-
   case 2:
     this->grow(-1, 0);
     break;
-
   case 3:
     this->grow(0, 1);
-    break;
-    
-  default:
-    std::cout << "Error! Direction out of range\n" << myDirection;
     break;
   }
 }
@@ -96,4 +92,6 @@ void Dragon::update(RenderWindow *pWindow) {
     dragonRectShape.setPosition(dragonBody.at(i).x, dragonBody.at(i).y);
     pWindow->draw(this->dragonRectShape);
   }
+
+  //std::cout << this->onGridRandom(0).x << ", " << this->onGridRandom(0).y << std::endl;
 }

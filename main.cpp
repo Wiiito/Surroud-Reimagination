@@ -11,20 +11,21 @@
  */
 
 int main() {
+  std::srand(std::time(nullptr));
   Engine gameEngine;
 
   sf::RenderWindow *pWindow = gameEngine.getWindow();
 
   // ---- Creating gameScene ----
-  Game *game = new Game(pWindow);
+  Game *game = new Game;
   Scene gameScene("game");
-  gameScene.setInstanceFunction([&game, pWindow]() -> void {
+  gameScene.setInstanceFunction([&game]() -> void {
     delete (game);
-    game = new Game(pWindow);
+    game = new Game;
   });
   gameScene.add([game, pWindow]() -> void {
     game->update();
-    game->render();
+    game->render(pWindow);
   });
   gameEngine.pushScene(&gameScene);
 

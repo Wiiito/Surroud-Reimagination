@@ -11,7 +11,8 @@ private:
     Vector2f screenSize;
     RectangleShape dragonRectShape;
     int offset;
-    int myDirection;
+    int myDirection = 0;
+    Keyboard::Key keys[4];
 
     Texture headTexture;
     Texture baseTexture;
@@ -20,10 +21,14 @@ private:
     Sprite baseSprite;
 
     void grow(int x, int y);
+    void makeHead();
 
 public:
     Dragon();
     Vector2f onGridRandom();
-    void move(int direction);
+    void move();
     void update(RenderWindow *pWindow);
+    void setKeys(Keyboard::Key* keys);
+    Keyboard::Key getKey(int index);
+    void setDirection(int direction);
 };

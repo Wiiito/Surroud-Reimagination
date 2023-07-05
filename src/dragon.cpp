@@ -4,8 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-// #include <ctime>
-// #include <ctime>
+#include <ctime>
 
 using namespace sf;
 using std::vector;

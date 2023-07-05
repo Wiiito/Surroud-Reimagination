@@ -1,5 +1,4 @@
 #include <iostream>
-<<<<<<< HEAD
 #include <vector>
 #include "../headers/dragon.hpp"
 #include "../headers/engine.hpp"

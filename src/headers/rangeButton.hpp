@@ -15,7 +15,7 @@ class RangeButton {
   sf::Texture buttonTexture;
   sf::RectangleShape button;
 
-  ButtonReference references = MASTER;
+  ButtonReference references;
 
   sf::Vector2f pos;
 

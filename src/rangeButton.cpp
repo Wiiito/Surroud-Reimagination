@@ -47,10 +47,12 @@ void RangeButton::setButton(std::string path) {
 void RangeButton::setPosition(sf::Vector2f pos) {
   this->pos = pos;
   this->background.setPosition(pos);
-  this->updatePosition();
 }
 
-void RangeButton::setReference(ButtonReference ref) { this->references = ref; }
+void RangeButton::setReference(ButtonReference ref) {
+  this->references = ref;
+  this->updatePosition();
+}
 
 void RangeButton::setButtonOrigin(sf::Vector2f pos) { this->button.setOrigin(pos); }
 

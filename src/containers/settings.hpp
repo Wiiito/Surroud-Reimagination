@@ -59,6 +59,8 @@ class SettingsScreen {
 
     this->masterVolumeRange.setButton("src/assets/imgs/Lantern.png");
     this->masterVolumeRange.setButtonOrigin(sf::Vector2f(13, 42));
+
+    this->masterVolumeRange.setReference(MASTER);
   }
 
   RangeButton fxVolumeRange;
@@ -68,6 +70,8 @@ class SettingsScreen {
 
     this->fxVolumeRange.setButton("src/assets/imgs/Lantern.png");
     this->fxVolumeRange.setButtonOrigin(sf::Vector2f(13, 42));
+
+    this->fxVolumeRange.setReference(EFFECTS);
   }
 
   RangeButton musicVolumeRange;
@@ -77,6 +81,8 @@ class SettingsScreen {
 
     this->musicVolumeRange.setButton("src/assets/imgs/Lantern.png");
     this->musicVolumeRange.setButtonOrigin(sf::Vector2f(13, 42));
+
+    this->musicVolumeRange.setReference(MUSIC);
   }
 
   Button backButton;

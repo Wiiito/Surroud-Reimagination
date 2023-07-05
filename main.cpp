@@ -32,8 +32,8 @@ int main() {
     delete (game);
     game = new Game;
   });
-  gameScene.add([game, pWindow]() -> void {
-    game->update();
+  gameScene.add([game, pWindow, &gameEngine]() -> void {
+    game->update(&gameEngine);
     game->render(pWindow);
   });
   gameEngine.pushScene(&gameScene);

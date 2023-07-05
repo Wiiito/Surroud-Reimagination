@@ -10,12 +10,13 @@ using std::vector;
 Dragon::Dragon(Color color, int part) {
   this->headAnimation = new Animation(8, 0.1f, Vector2i(0, 0));
   this->screenSize = Vector2f(1280, 720);
+  this->winPart = part;
   offset = 40;
   
   dragonRectShape.setSize(Vector2f(offset, offset));
   dragonRectShape.setFillColor(color);
 
-  dragonBody.push_back(this->onGridRandom(part));
+  dragonBody.push_back(this->onGridRandom(this->winPart));
   this->makeHead();
 }
 
@@ -29,8 +30,6 @@ void Dragon::makeHead() {
     this->headSprite.getScale().y / 33 * offset 
   );
   this->headSprite.setOrigin(this->headSprite.getScale().x * 4.125, 0);
-
-  this->baseTexture.loadFromFile("src/assets/imgs/dragon/dragon-base.png");
 
   this->baseSprite.setTexture(this->headTexture);
   this->baseSprite.setPosition(this->headSprite.getPosition());
@@ -80,6 +79,26 @@ void Dragon::move() {
   }
 }
 
+bool Dragon::dragonCollide(vector<Vector2f> pos) {
+  for (int i = 0; i < pos.size(); i++) {
+    if (this->dragonBody.at(this->dragonBody.size() - 1) == pos.at(i)) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool Dragon::edgesCollide(Vector2f initPos, Vector2f finalPos) {
+  if (this->dragonBody.at(this->dragonBody.size() - 1).x <= initPos.x - 1 || this->dragonBody.at(this->dragonBody.size() - 1).y <= initPos.y - 1) {
+    return true;
+  } else if (this->dragonBody.at(this->dragonBody.size() - 1).x >= finalPos.x + 1 || this->dragonBody.at(this->dragonBody.size() - 1).y >= finalPos.y + 1) {
+      return true;
+  }
+
+  return false;
+}
+
 void Dragon::setKeys(Keyboard::Key* pkeys){
   for (int i = 0; i <= 3; i++){
     this->keys[i] = pkeys[i];
@@ -90,8 +109,25 @@ Keyboard::Key Dragon::getKey(int index) {
   return this->keys[index];
 }
 
+vector<Vector2f> Dragon::getBody() {
+  return this->dragonBody;
+}
+
 void Dragon::setDirection(int direction){
   this->myDirection = direction;
+}
+
+void Dragon::reinit() {
+  /*for(int i = 0; i < this->dragonBody.at(this->dragonBody.size() - 1); i++){
+    this->dragonBody.pop(i);
+  }
+  this->dragonBody.resize(0);*/
+
+  this->dragonBody.clear();
+  this->myDirection = -1;
+
+  this->dragonBody.push_back(this->onGridRandom(this->winPart));
+  this->update();
 }
 
 void Dragon::update() {

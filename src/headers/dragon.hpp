@@ -13,6 +13,7 @@ private:
     RectangleShape dragonRectShape;
     int offset;
     int myDirection = -1;
+    int winPart;
     Keyboard::Key keys[4];
 
     Texture headTexture;
@@ -30,7 +31,11 @@ public:
     void move();
     void draw(RenderWindow *pWindow);
     void update();
+    bool dragonCollide(vector<Vector2f> pos);
+    bool edgesCollide(Vector2f initPos, Vector2f finalPos);
+    void reinit();
     void setKeys(Keyboard::Key* keys);
     Keyboard::Key getKey(int index);
+    vector<Vector2f> getBody();
     void setDirection(int direction);
 };

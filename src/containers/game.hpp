@@ -32,6 +32,14 @@ class Game {
         }
       }   
 
+      if (dragons[0].dragonCollide(dragons[1].getBody()) || dragons[0].edgesCollide(Vector2f(0, 0), Vector2f(1280, 720))) {
+        dragons[0].reinit();
+        dragons[1].reinit();
+      } else if (dragons[1].dragonCollide(dragons[0].getBody()) || dragons[1].edgesCollide(Vector2f(0, 0), Vector2f(1280, 720))) {
+        dragons[0].reinit();
+        dragons[1].reinit();
+      }
+
       if(contador == 0){
         for (int i = 0; i <= 1; i++){
           dragons[i].update();

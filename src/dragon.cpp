@@ -1,7 +1,10 @@
 #include "headers/dragon.hpp"
 
 #include <SFML/Graphics.hpp>
+
+#include <SFML/Graphics.hpp>
 #include <iostream>
+// #include <ctime>
 // #include <ctime>
 
 using namespace sf;
@@ -37,6 +40,7 @@ void Dragon::makeHead() {
   this->headSprite.setScale(4, 4);
 
   this->headSprite.setTextureRect(IntRect(0, 0, 29, 46));
+  this->headSprite.setTextureRect(IntRect(0, 0, 29, 46));
 }
 
 Vector2f Dragon::onGridRandom(int part) {
@@ -49,6 +53,8 @@ Vector2f Dragon::onGridRandom(int part) {
 }
 
 void Dragon::grow(int x, int y) {
+  dragonBody.push_back(Vector2f(float(dragonBody.at(dragonBody.size() - 1).x + x * offset),
+                                float(dragonBody.at(dragonBody.size() - 1).y + y * offset)));
   dragonBody.push_back(Vector2f(float(dragonBody.at(dragonBody.size() - 1).x + x * offset),
                                 float(dragonBody.at(dragonBody.size() - 1).y + y * offset)));
 }
@@ -88,10 +94,8 @@ void Dragon::update(RenderWindow *pWindow) {
   //pWindow->draw(this->baseSprite);
   //pWindow->draw(this->headSprite);
 
-  for (int i = 0; i < dragonBody.size(); i++) {
-    dragonRectShape.setPosition(dragonBody.at(i).x, dragonBody.at(i).y);
-    pWindow->draw(this->dragonRectShape);
-  }
-
-  //std::cout << this->onGridRandom(0).x << ", " << this->onGridRandom(0).y << std::endl;
+    for (int i = 0; i < dragonBody.size(); i++) {
+        dragonRectShape.setPosition(dragonBody.at(i).x, dragonBody.at(i).y);
+        pWindow->draw(this->dragonRectShape);
+    }  
 }

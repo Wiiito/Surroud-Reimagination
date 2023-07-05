@@ -1,4 +1,5 @@
 #include <iostream>
+<<<<<<< HEAD
 #include <vector>
 #include "../headers/dragon.hpp"
 #include "../headers/engine.hpp"
@@ -59,4 +60,4 @@ class Game {
       pWindow->draw(this->lines);
     }
   }
-};  
+};

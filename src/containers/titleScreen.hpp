@@ -98,6 +98,14 @@ class TitleScreen {
     this->quitButton.setHoverSound("src/assets/sounds/zipclick.wav");
   }
 
+  sf::Music backgroundMusic;
+
+  void initMusic() {
+    this->backgroundMusic.openFromFile("src/assets/sounds/music.ogg");
+    this->backgroundMusic.setVolume(SoundControler::getFormatedMusicVolume());
+    this->backgroundMusic.play();
+  }
+
   // --------------------
 
   void initVariables() {
@@ -108,6 +116,7 @@ class TitleScreen {
     this->initStartButton();
     this->initSettingsButton();
     this->initQuitButton();
+    this->initMusic();
   }
 
  public:

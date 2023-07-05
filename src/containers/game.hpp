@@ -1,9 +1,12 @@
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 #include <algorithm>
 #include <iostream>
 #include <vector>
 
 #include "../headers/dragon.hpp"
 #include "../headers/engine.hpp"
+
 using namespace sf;
 using namespace std;
 using std::vector;
@@ -31,7 +34,7 @@ class Game {
   sf::CircleShape points;  // Pontinhos que serão desenhados na tela conforme a quantidade de pontos
                            // de cada jogador
 
- public:
+  public:
   Game() {
     dragons[0].setKeys(keysDrag1);
     dragons[1].setKeys(keysDrag2);

@@ -12,7 +12,7 @@ class Game {
   Keyboard::Key keysDrag1[4] = {Keyboard::Right, Keyboard::Up, Keyboard::Left, Keyboard::Down};
   Keyboard::Key keysDrag2[4] = {Keyboard::D, Keyboard::W, Keyboard::A, Keyboard::S};
   
-  float andadinha = 80;
+  float andadinha = 300;
   int contador = 0;
   RectangleShape lines;
 
@@ -30,21 +30,21 @@ class Game {
             dragons[i].setDirection(j);
           }
         }
-      }
+      }   
 
       if(contador == 0){
         for (int i = 0; i <= 1; i++){
-          dragons[i].move();
+          dragons[i].update();
         }
         
       } else if (contador == andadinha){
         contador = -1;
       }
       contador++;
-    }
+  }
   void render(sf::RenderWindow *pWindow) {
     for (int i = 0; i <= 1; i++){
-      dragons[i].update(pWindow);
+      dragons[i].draw(pWindow);
     }
 
     lines.setSize(Vector2f(1, pWindow->getSize().y));

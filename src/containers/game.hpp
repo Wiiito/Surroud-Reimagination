@@ -14,6 +14,7 @@ class Game {
     Background.setSize(Vector2f(pWindow->getSize().x, pWindow->getSize().y));
     Background.setFillColor(Color::White);
   }
+
   void update() {}
   void render(sf::RenderWindow *pWindow) {
     pWindow->draw(this->Background);

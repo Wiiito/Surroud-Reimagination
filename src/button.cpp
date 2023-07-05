@@ -194,7 +194,7 @@ void Button::setOrigin(Vector2f originPos) {}
 void Button::setHoverSound(std::string path) {
   this->hoverSoundBuffer.loadFromFile(path);
   this->hoverSound.setBuffer(hoverSoundBuffer);
-  this->hoverSound.setVolume(SoundControler::getFormatedMusicVolume());
+  this->hoverSound.setVolume(SoundControler::getFormatedEffectsVolume());
 }
 
 /**
@@ -206,5 +206,5 @@ void Button::setHoverSound(std::string path) {
 void Button::setClickSound(std::string path) {
   this->clickSoundBuffer.loadFromFile(path);
   this->clickSound.setBuffer(clickSoundBuffer);
-  this->hoverSound.setVolume(SoundControler::getFormatedMusicVolume());
+  this->clickSound.setVolume(SoundControler::getFormatedEffectsVolume());
 }

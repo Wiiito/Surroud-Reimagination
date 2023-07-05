@@ -69,6 +69,8 @@ class TitleScreen {
     this->settingsButton.setPosition(sf::Vector2f(640, 450));
     this->settingsButton.setColorOnHover(TEXT, sf::Color(80, 0, 7));
     this->settingsButton.setText(settingsButtonText);
+    this->settingsButton.setCallbackFunction(
+        [this]() -> void { this->pEngine->setCurrentScene("settings"); });
   }
 
   Button quitButton;
@@ -110,8 +112,8 @@ class TitleScreen {
 
  public:
   TitleScreen(Engine *pEngine) {
-    this->initVariables();
     this->pEngine = pEngine;
+    this->initVariables();
   }
 
   void update() {}

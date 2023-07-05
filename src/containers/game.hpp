@@ -59,4 +59,4 @@ class Game {
       pWindow->draw(this->lines);
     }
   }
-};
+};  

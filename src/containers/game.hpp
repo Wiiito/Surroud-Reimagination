@@ -6,6 +6,7 @@
 
 #include "../headers/dragon.hpp"
 #include "../headers/engine.hpp"
+#include "../headers/sound.hpp"
 
 using namespace sf;
 using namespace std;
@@ -34,7 +35,10 @@ class Game {
   sf::CircleShape points;  // Pontinhos que serão desenhados na tela conforme a quantidade de pontos
                            // de cada jogador
 
-  public:
+  sf::SoundBuffer killBuffer;
+  sf::Sound killSound;
+
+ public:
   Game() {
     dragons[0].setKeys(keysDrag1);
     dragons[1].setKeys(keysDrag2);
@@ -55,6 +59,10 @@ class Game {
     this->points.setFillColor(sf::Color::Red);
     this->points.setOrigin(this->points.getLocalBounds().width / 2,
                            this->points.getLocalBounds().height / 2);
+
+    this->killBuffer.loadFromFile("src/assets/sounds/kill.ogg");
+    this->killSound.setBuffer(killBuffer);
+    this->killSound.setVolume(SoundControler::getFormatedEffectsVolume());
   }
 
   void update(Engine *pEngine) {
@@ -77,7 +85,9 @@ class Game {
       dragons[0].reinit();
       dragons[1].reinit();
 
-      this->player2Points++;
+      this->killSound.play();
+
+      this->player1Points++;
       this->gameVelocity = 250;
       this->gameClock.restart();
 
@@ -87,7 +97,9 @@ class Game {
       dragons[0].reinit();
       dragons[1].reinit();
 
-      this->player1Points++;
+      this->killSound.play();
+
+      this->player2Points++;
       this->gameVelocity = 250;
       this->gameClock.restart();
     }
